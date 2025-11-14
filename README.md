@@ -30,7 +30,7 @@ auto isReceptionSuccessful =
 This allows explicit control over reception start, success/failure, and duration
 of each radio state.
 
-2. Insertion of an explicit LoRa PHY preamble (LoRaPhyPreamble)
+### **2. Insertion of an explicit LoRa PHY preamble (LoRaPhyPreamble)
 
 The preamble is now added at the beginning of each transmitted packet:
 
@@ -44,7 +44,7 @@ auto preamble = packet->popAtFront<LoRaPhyPreamble>();
 This exposes real LoRa PHY parameters (SF, BW, CR, Tx power) to the energy
 consumer.
 
-3. New signal for tracking dropped packets
+### **3. New signal for tracking dropped packets
 
 A new signal was created to capture failed receptions that the original INET
 radio does not expose:
@@ -53,7 +53,7 @@ simsignal_t LoRaRadio::droppedPacket =
     cComponent::registerSignal("droppedPacket");
 emit(LoRaRadio::droppedPacket, 0);
 
-4. Explicit handling of transmission power
+### **4. Explicit handling of transmission power
 
 Transmission power is now computed and stored manually to support the new
 energy model:
@@ -62,16 +62,13 @@ setCurrentTxPower(10 * log10(tag->getPower().get() * 1000.0));
 
 A SignalPowerReq tag is also forced into each packet:
 
+```sh
 auto signalPowerReq = packet->addTagIfAbsent<SignalPowerReq>();
 signalPowerReq->setPower(tag->getPower());
-
+```
 
 
 ---------------------------------------------------------------------------------------------------
-
-
-
-
 
 
 
