@@ -21,7 +21,7 @@ INET’s built-in reception handling was bypassed:
 
 // FlatRadioBase::startReception(timer, part);
 
-and replaced by a custom LoRa-specific routine:
+and replaced by a custom LoRa-specific routine: 
 
 auto isReceptionSuccessful =
     medium->getReceptionDecision(this, signal->getListening(), transmission, part)
